@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -8,9 +9,11 @@ import Card from "react-bootstrap/Card";
 import InvoiceItem from "./InvoiceItem";
 import InvoiceModal from "./InvoiceModal";
 import InputGroup from "react-bootstrap/InputGroup";
+import { useDispatch } from "react-redux";
+import { add, update } from "../redux/invoiceSlice";
 
 const InvoiceForm = (props) => {
-  console.log('props', props.isEditable);
+  console.log("props", props.isEditable);
   const [isOpen, setIsOpen] = useState(false);
   const [currency, setCurrency] = useState("$");
   const [currentDate] = useState(new Date().toLocaleDateString());
@@ -39,6 +42,9 @@ const InvoiceForm = (props) => {
       quantity: 1,
     },
   ]);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
     handleCalculateTotal();
@@ -151,8 +157,44 @@ const InvoiceForm = (props) => {
 
   const closeModal = () => setIsOpen(false);
 
+  function handleOnSubmit(event) {
+    event.preventDefault();
+    handleCalculateTotal();
+    const data = {
+      info: {
+        currency,
+        invoiceNumber,
+        dateOfIssue,
+        billTo,
+        billToEmail,
+        billToAddress,
+        billFrom,
+        billFromEmail,
+        billFromAddress,
+        notes,
+        total,
+        subTotal,
+        taxRate,
+        taxAmount,
+        discountRate,
+        discountAmount,
+      },
+      items: items,
+      currency: currency,
+      subTotal: subTotal,
+      taxAmount: taxAmount,
+      discountAmount: discountAmount,
+    };
+    if (!props.isEditable) {
+      dispatch(add(data));
+    } else {
+      dispatch(update(data));
+    }
+    navigate("/");
+  }
+
   return (
-    <Form onSubmit={openModal}>
+    <Form onSubmit={handleOnSubmit}>
       <Row>
         <Col md={8} lg={9}>
           <Card className="p-4 p-xl-5 my-3 my-xl-4">
@@ -333,8 +375,20 @@ const InvoiceForm = (props) => {
         </Col>
         <Col md={4} lg={3}>
           <div className="sticky-top pt-md-3 pt-xl-4">
-            <Button variant="primary" type="submit" className="d-block w-100">
+            <Button
+              variant="primary"
+              type="submit"
+              onClick={openModal}
+              className="d-block w-100"
+            >
               Review Invoice
+            </Button>
+            <Button
+              variant="danger"
+              type="submit"
+              className="d-block my-2 w-100"
+            >
+              Create Invoice
             </Button>
             <InvoiceModal
               showModal={isOpen}

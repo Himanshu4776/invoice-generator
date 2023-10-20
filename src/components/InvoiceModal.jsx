@@ -27,6 +27,7 @@ const GenerateInvoice = () => {
 };
 
 const InvoiceModal = (props) => {
+  console.log('prospksahdj', props);
   return (
     <div>
       <Modal
