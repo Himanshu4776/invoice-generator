@@ -7,7 +7,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
-import { remove } from "../redux/invoiceSlice";
+import { remove } from "../store/invoiceSlice";
 
 export const ListInvoice = () => {
   const navigate = useNavigate();
@@ -15,7 +15,10 @@ export const ListInvoice = () => {
 
   const data = useSelector((state) => state.invoices.value);
 
+  console.log('data', data);
+
   function handleEditClick(code) {
+    console.log('code', code);
     navigate("edit-invoice", { state: code });
   }
 
@@ -34,10 +37,10 @@ export const ListInvoice = () => {
   return (
     <>
       <h1>Invoice generator</h1>
-      <div className="d-flex ">
+      <div className="d-flex">
         <h3>List of Invoices</h3>
         <Button className="fw-bold " onClick={handleAddClick}>
-          Add Item
+          Add Invoice
         </Button>
       </div>
       <Container>

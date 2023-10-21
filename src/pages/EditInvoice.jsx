@@ -1,13 +1,20 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import InvoiceForm from "../components/InvoiceForm";
 import { BiArrowBack } from "react-icons/bi";
 import { useSelector } from "react-redux";
-import { getInvoiceData } from "../redux/invoiceSlice";
+import {selectInvoices} from  "../store/invoiceSlice";
 
-export function EditInvoice(props) {
+export function EditInvoice() {
   const navigate = useNavigate();
-  const data = useSelector((state) => getInvoiceData(state, props));
-  const formData = data?.payload?.invoices?.value[0];
+  const rowInvoiceNumber = useLocation().state;
+  console.log('data', rowInvoiceNumber);
+
+  // import { getInvoiceData } from "../redux/invoiceSlice";
+  // const data = useSelector((state) => getInvoiceData(state, props));
+  // const formData = data?.payload?.invoices?.value[0];
+
+  const data = useSelector(selectInvoices(rowInvoiceNumber));
+  const formData = data[0];
   return (
     <div>
       <div className="d-flex">

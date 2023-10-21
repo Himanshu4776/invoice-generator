@@ -1,15 +1,19 @@
 import InvoiceModal from "../components/InvoiceModal";
 import { useSelector } from "react-redux";
-import { getInvoiceData } from "../redux/invoiceSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {selectInvoices} from  "../redux/invoiceSlice";
+import { selectInvoices } from "../store/invoiceSlice";
 
-export function ViewInvoice(props) {
+export function ViewInvoice() {
   const navigate = useNavigate();
-  // const data = useSelector(selectInvoices);
-  const data = useSelector((state) => getInvoiceData(state, props));
-  const formData = data?.payload?.invoices?.value[0];
+  const data = useSelector(selectInvoices);
+  const formData = data[0];
+
+  // import { getInvoiceData } from "../redux/invoiceSlice";
+  // const data = useSelector((state) => getInvoiceData(state, props));
+  // const formData = data?.payload?.invoices?.value[0];
+
+  console.log('formData', formData);
 
   const [isOpenModal, setIsOpenModal] = useState(true);
 

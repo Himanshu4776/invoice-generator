@@ -48,7 +48,7 @@ export const invoiceSlice = createSlice({
     },
     update: (state, action) => {
       // remove the previous value object
-      state.value.filter(
+      state.value = state.value.filter(
         (item) =>
           item.info.invoiceNumber !== action.payload?.info?.invoiceNumber
       );

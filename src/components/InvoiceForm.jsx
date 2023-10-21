@@ -10,13 +10,13 @@ import InvoiceItem from "./InvoiceItem";
 import InvoiceModal from "./InvoiceModal";
 import InputGroup from "react-bootstrap/InputGroup";
 import { useDispatch } from "react-redux";
-import { add, update } from "../redux/invoiceSlice";
+import { add, update } from "../store/invoiceSlice";
 
 const InvoiceForm = (props) => {
   const [isOpen, setIsOpen] = useState(false);
   const [currency, setCurrency] = useState("$");
   const [currentDate] = useState(new Date().toLocaleDateString());
-  const [invoiceNumber, setInvoiceNumber] = useState(1);
+  const [invoiceNumber, setInvoiceNumber] = useState(props.invoiceNumberValue);
   const [dateOfIssue, setDateOfIssue] = useState("");
   const [billTo, setBillTo] = useState("");
   const [billToEmail, setBillToEmail] = useState("");
@@ -56,39 +56,15 @@ const InvoiceForm = (props) => {
     setIsFirstApiCall(false);
   }, [isFirstApiCall]);
 
-  // const [items, setItems] = useState([
-  // {
-  //   id: 0,
-  //   price: "1.00",
-  //   quantity: 1,
-  //   name: "",
-  //   description: "",
-  // },
-  // ]);
-
-  // useEffect(() => {
-  //   const defaultItemValue = {
-  //     id: 0,
-  //     price: "1.00",
-  //     quantity: 1,
-  //     name: "",
-  //     description: "",
-  //   };
-  //   setItems(defaultItemValue);
-  // }, [])
   const [items, setItems] = useState([
     {
-      id: 1,
+      id: "1",
       name: "",
-      description: "as",
+      description: "",
       price: "1.00",
       quantity: 1,
     },
   ]);
-
-  console.log('items', items);
-
-  // console.log("total , subtotal", total, subTotal, items);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -113,6 +89,10 @@ const InvoiceForm = (props) => {
     setItems([...items, newItem]);
   };
 
+  useEffect(() => {
+    handleCalculateTotal();
+  }, [handleAddEvent, handleRowDel]);
+
   const handleCalculateTotal = () => {
     let subTotal = 0;
 
@@ -135,16 +115,12 @@ const InvoiceForm = (props) => {
 
   const onItemizedItemEdit = (evt) => {
     const { id, name, value } = evt.target;
-    console.log("onItemizedItemEdit", id, name, value, evt.target);
     const updatedItems = items.map((item) => {
       if (item.id === id) {
-        // return { ...item, [name]: value };
-        return { ...item, name: item.name + value };
+        return { ...item, [name]: value };
       }
       return item;
     });
-
-    console.log('updatedItems', updatedItems);
 
     setItems(updatedItems);
     handleCalculateTotal();
@@ -283,7 +259,7 @@ const InvoiceForm = (props) => {
                     maxWidth: "70px",
                   }}
                   required="required"
-                  disabled={props.isEditable}
+                  disabled={true}
                 />
               </div>
             </div>
@@ -439,7 +415,7 @@ const InvoiceForm = (props) => {
               type="submit"
               className="d-block my-2 w-100"
             >
-              Create Invoice
+              {!props.isEditable ? 'Create Invoice' : 'Edit Invoice'}
             </Button>
             <InvoiceModal
               showModal={isOpen}

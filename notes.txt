@@ -17,7 +17,9 @@ technical:
 - integrate react router for add-invoice, edit-invoice and view invoice. ✅
 
 needs to be done:
-- fix the items text box issue
-- fix the cost calculation issue in items
-- check the update functionality of invoices.
+- fix the items text box issue. ✅
+- fix the cost calculation issue in items. ✅
+- check the update functionality of invoices. ✅
 - improve list UI screen
+- code clean
+- document code

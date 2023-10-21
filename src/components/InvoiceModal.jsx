@@ -50,7 +50,7 @@ const InvoiceModal = (props) => {
               <h6 className="fw-bold mt-1 mb-2">Amount Due:</h6>
               <h5 className="fw-bold text-secondary">
                 {" "}
-                {props.currency} {props.total}
+                {props.currency} {props.info.total}
               </h5>
             </div>
           </div>
@@ -117,25 +117,25 @@ const InvoiceModal = (props) => {
                     {props.currency} {props.subTotal}
                   </td>
                 </tr>
-                {props.taxAmmount !== 0.0 && (
+                {props.taxAmount !== "0.0" && (
                   <tr className="text-end">
                     <td></td>
                     <td className="fw-bold" style={{ width: "100px" }}>
                       TAX
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
-                      {props.currency} {props.taxAmmount}
+                      {props.currency} {props.taxAmount}
                     </td>
                   </tr>
                 )}
-                {props.discountAmmount !== 0.0 && (
+                {props.discountAmount !== "0.0" && (
                   <tr className="text-end">
                     <td></td>
                     <td className="fw-bold" style={{ width: "100px" }}>
                       DISCOUNT
                     </td>
                     <td className="text-end" style={{ width: "100px" }}>
-                      {props.currency} {props.discountAmmount}
+                      {props.currency} {props.discountAmount}
                     </td>
                   </tr>
                 )}
@@ -145,7 +145,7 @@ const InvoiceModal = (props) => {
                     TOTAL
                   </td>
                   <td className="text-end" style={{ width: "100px" }}>
-                    {props.currency} {props.total}
+                    {props.currency} {props.info.total}
                   </td>
                 </tr>
               </tbody>
