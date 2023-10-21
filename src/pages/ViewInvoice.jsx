@@ -3,11 +3,15 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { fetchInvoicesWithCode } from "../store/invoiceSlice";
-import {NAVIGATE} from  '../shared/constants';
+import { NAVIGATE } from "../shared/constants";
 
 export function ViewInvoice() {
   const navigate = useNavigate();
+
+  // get the invoice number of selected row from listView
   const rowInvoiceNumber = useLocation().state;
+
+  // fetch the data for selected row from redux store
   const data = useSelector(fetchInvoicesWithCode(rowInvoiceNumber));
   const formData = data[0];
 

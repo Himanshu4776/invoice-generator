@@ -3,14 +3,21 @@ import InvoiceForm from "../components/InvoiceForm";
 import { BiArrowBack } from "react-icons/bi";
 import Container from "react-bootstrap/Container";
 import { useSelector } from "react-redux";
-import {selectInvoices} from  "../store/invoiceSlice";
-import {NAVIGATE} from  '../shared/constants';
+import { selectInvoices } from "../store/invoiceSlice";
+import { NAVIGATE } from "../shared/constants";
 
 export function AddInvoice() {
   const navigate = useNavigate();
   const data = useSelector(selectInvoices);
 
-  const newInvoiceNumberValue = (parseInt(data[data.length - 1]?.info?.invoiceNumber) + 1).toString();
+  // set the newInvoiceNumber to manage the records form redux store
+  let newInvoiceNumberValue = (
+    parseInt(data[data.length - 1]?.info?.invoiceNumber) + 1
+  ).toString();
+
+  if (!data.length) {
+    newInvoiceNumberValue = "1";
+  }
 
   return (
     <div>
@@ -23,7 +30,10 @@ export function AddInvoice() {
           />
           <h1 className="ms-3">Add Invoice</h1>
         </div>
-        <InvoiceForm isEditable={false} invoiceNumberValue={newInvoiceNumberValue} />
+        <InvoiceForm
+          isEditable={false}
+          invoiceNumberValue={newInvoiceNumberValue}
+        />
       </Container>
     </div>
   );

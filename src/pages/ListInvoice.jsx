@@ -8,23 +8,27 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import Container from "react-bootstrap/Container";
 import { remove } from "../store/invoiceSlice";
-import {currencyToString, NAVIGATE} from '../shared/constants';
-import {FcEmptyTrash} from "react-icons/fc";
+import { currencyToString, NAVIGATE } from "../shared/constants";
+import { FcEmptyTrash } from "react-icons/fc";
 
 export const ListInvoice = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // fetch the data from redux store
   const data = useSelector((state) => state.invoices.value);
 
+  // naviagte user to edit-invoices
   function handleEditClick(code) {
     navigate(NAVIGATE.EDIT, { state: code });
   }
 
+  // naviagte user to add-invoices
   function handleAddClick() {
     navigate(NAVIGATE.ADD);
   }
 
+  // naviagte user to view-invoices
   function handleViewClick(code) {
     navigate(NAVIGATE.VIEW, { state: code });
   }
@@ -39,12 +43,12 @@ export const ListInvoice = () => {
         <h1>Invoice Generator</h1>
       </div>
       <Container>
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h3>List of Invoices</h3>
-        <Button className="fw-bold" onClick={handleAddClick}>
-          Add Invoice
-        </Button>
-      </div>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h3>List of Invoices</h3>
+          <Button className="fw-bold" onClick={handleAddClick}>
+            Add Invoice
+          </Button>
+        </div>
         <div>
           <Table>
             <thead>
@@ -61,7 +65,9 @@ export const ListInvoice = () => {
                 <tr key={index}>
                   <td className="align-middle">{item.info?.invoiceNumber}</td>
                   <td className="align-middle">{item.info?.dateOfIssue}</td>
-                  <td className="align-middle">{currencyToString(item.currency)}</td>
+                  <td className="align-middle">
+                    {currencyToString(item.currency)}
+                  </td>
                   <td className="align-middle">{item.info?.total}</td>
                   <td className="text-center" style={{ minWidth: "50px" }}>
                     <BiTrash
@@ -102,23 +108,23 @@ export const ListInvoice = () => {
               ))}
             </tbody>
           </Table>
-          {
-            !data.length && (
+          {!data.length && (
             <div className="d-flex justify-content-center align-items-center mt-5">
-              <FcEmptyTrash color="primary"
-                  style={{
-                    height: "106px",
-                    width: "106px",
-                    marginTop: "-3px",
-                  }}
-                  className="me-2" />
+              <FcEmptyTrash
+                color="primary"
+                style={{
+                  height: "106px",
+                  width: "106px",
+                  marginTop: "-3px",
+                }}
+                className="me-2"
+              />
               <div className="text-center">
                 <h1>No data to show</h1>
                 <h3>Create new record</h3>
               </div>
             </div>
-            )
-          }
+          )}
         </div>
       </Container>
     </>
