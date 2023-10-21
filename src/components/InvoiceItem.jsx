@@ -41,7 +41,6 @@ const InvoiceItem = (props) => {
 
 const ItemRow = (props) => {
   const { onItemizedItemEdit, item, currency, id } = props;
-  console.log("id", id);
 
   const onDelEvent = () => {
     props.onDelEvent(item);

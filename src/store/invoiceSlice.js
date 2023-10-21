@@ -68,9 +68,18 @@ export const invoiceSlice = createSlice({
   },
 });
 
+const getDataArray = (state) => state.invoices.value;
+
 export const selectInvoices = createSelector(
   state => state.invoices,
   invoices => invoices.value
+);
+
+export const fetchInvoicesWithCode = (codeToFilter) => createSelector(
+  [getDataArray],
+  (dataArray) => {
+    return dataArray.filter(item => item.info.invoiceNumber === codeToFilter);
+  }
 );
 
 export const { add, update, remove, getInvoiceData } = invoiceSlice.actions;

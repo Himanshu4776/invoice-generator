@@ -1,7 +1,7 @@
 Errors:
 
-1) price action updates only 1st occurrence of addition data.
-2) No checks on deletion or for multiple data.
+1) price action updates only 1st occurrence of addition data. ✅
+2) No checks on deletion or for multiple data. ✅
 3) download happening for send invoice as well.
 
 
@@ -21,5 +21,5 @@ needs to be done:
 - fix the cost calculation issue in items. ✅
 - check the update functionality of invoices. ✅
 - improve list UI screen
-- code clean
+- code clean ✅
 - document code
