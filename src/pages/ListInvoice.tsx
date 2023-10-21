@@ -2,6 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Table from "react-bootstrap/Table";
 import Button from "react-bootstrap/Button";
 import { BiTrash, BiEditAlt } from "react-icons/bi";
+import { AiFillEye } from "react-icons/ai";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,10 +14,9 @@ export const ListInvoice = () => {
   const dispatch = useDispatch();
 
   const data = useSelector((state) => state.invoices.value);
-  console.log("data found", data, data?.length);
 
-  function handleEditClick() {
-    navigate("edit-invoice");
+  function handleEditClick(code) {
+    navigate("edit-invoice", { state: code });
   }
 
   function handleAddClick() {
@@ -25,6 +25,10 @@ export const ListInvoice = () => {
 
   function handleDeleteClick(code) {
     dispatch(remove(code));
+  }
+
+  function handleViewClick(code) {
+    navigate("view-invoice", { state: code });
   }
 
   return (
@@ -65,16 +69,29 @@ export const ListInvoice = () => {
                         width: "33px",
                         padding: "7.5px",
                       }}
-                      className="text-white  mx-2 btn btn-danger"
+                      className="text-white mr-2 btn btn-danger"
                     />
                     <BiEditAlt
-                      onClick={handleEditClick}
+                      onClick={() => {
+                        handleEditClick(item.info?.invoiceNumber);
+                      }}
                       style={{
                         height: "33px",
                         width: "33px",
                         padding: "7.5px",
                       }}
-                      className="text-white btn btn-warning"
+                      className="text-white mx-2 btn btn-warning"
+                    />
+                    <AiFillEye
+                      onClick={() => {
+                        handleViewClick(item.info?.invoiceNumber);
+                      }}
+                      style={{
+                        height: "33px",
+                        width: "33px",
+                        padding: "7.5px",
+                      }}
+                      className="text-white btn btn-success"
                     />
                   </td>
                 </tr>

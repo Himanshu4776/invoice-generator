@@ -59,8 +59,13 @@ export const invoiceSlice = createSlice({
         (item) => item.info.invoiceNumber !== action.payload
       );
     },
+    getInvoiceData: (state, action) => {
+      const val = state.value?.filter(
+        (item) => item?.info?.invoiceNumber === action.payload
+      );
+    },
   },
 });
 
-export const { add, update, remove } = invoiceSlice.actions;
+export const { add, update, remove, getInvoiceData } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

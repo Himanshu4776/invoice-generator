@@ -13,7 +13,6 @@ import { useDispatch } from "react-redux";
 import { add, update } from "../redux/invoiceSlice";
 
 const InvoiceForm = (props) => {
-  console.log("props", props.isEditable);
   const [isOpen, setIsOpen] = useState(false);
   const [currency, setCurrency] = useState("$");
   const [currentDate] = useState(new Date().toLocaleDateString());
@@ -32,7 +31,51 @@ const InvoiceForm = (props) => {
   const [taxAmount, setTaxAmount] = useState("0.00");
   const [discountRate, setDiscountRate] = useState("");
   const [discountAmount, setDiscountAmount] = useState("0.00");
+  const [isFirstApiCall, setIsFirstApiCall] = useState(true);
 
+  useEffect(() => {
+    if (props.isEditable) {
+      setCurrency(props.editData.currency);
+      setBillTo(props.editData.info.billTo);
+      setInvoiceNumber(props.editData.info.invoiceNumber);
+      setDateOfIssue(props.editData.info.dateOfIssue);
+      setBillToEmail(props.editData.info.billToEmail);
+      setBillToAddress(props.editData.info.billToAddress);
+      setBillFrom(props.editData.info.billFrom);
+      setBillFromEmail(props.editData.info.billFromEmail);
+      setBillFromAddress(props.editData.info.billFromAddress);
+      setNotes(props.editData.info.notes);
+      setSubTotal(props.editData.subTotal);
+      setTotal(props.editData);
+      setTaxRate(props.editData.info.taxRate);
+      setTaxAmount(props.editData.taxAmount);
+      setDiscountRate(props.editData.info.discountRate);
+      setDiscountAmount(props.editData.discountAmount);
+      setItems(props.editData.items);
+    }
+    setIsFirstApiCall(false);
+  }, [isFirstApiCall]);
+
+  // const [items, setItems] = useState([
+  // {
+  //   id: 0,
+  //   price: "1.00",
+  //   quantity: 1,
+  //   name: "",
+  //   description: "",
+  // },
+  // ]);
+
+  // useEffect(() => {
+  //   const defaultItemValue = {
+  //     id: 0,
+  //     price: "1.00",
+  //     quantity: 1,
+  //     name: "",
+  //     description: "",
+  //   };
+  //   setItems(defaultItemValue);
+  // }, [])
   const [items, setItems] = useState([
     {
       id: 0,
@@ -42,6 +85,8 @@ const InvoiceForm = (props) => {
       quantity: 1,
     },
   ]);
+
+  console.log("total , subtotal", total, subTotal, items);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

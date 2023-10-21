@@ -8,6 +8,7 @@ import Modal from "react-bootstrap/Modal";
 import { BiPaperPlane, BiCloudDownload } from "react-icons/bi";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const GenerateInvoice = () => {
   html2canvas(document.querySelector("#invoiceCapture")).then((canvas) => {
@@ -27,7 +28,6 @@ const GenerateInvoice = () => {
 };
 
 const InvoiceModal = (props) => {
-  console.log('prospksahdj', props);
   return (
     <div>
       <Modal
@@ -46,12 +46,23 @@ const InvoiceModal = (props) => {
                 Invoice #: {props.info.invoiceNumber || ""}
               </h6>
             </div>
-            <div className="text-end ms-4">
-              <h6 className="fw-bold mt-1 mb-2">Amount Due:</h6>
-              <h5 className="fw-bold text-secondary">
-                {" "}
-                {props.currency} {props.total}
-              </h5>
+            <div className="d-flex ">
+              <div className="text-middle ms-4">
+                <h6 className="fw-bold mt-1 mb-2">Amount Due:</h6>
+                <h5 className="fw-bold text-secondary">
+                  {" "}
+                  {props.currency} {props.total}
+                </h5>
+              </div>
+              <AiOutlineCloseCircle
+                color="primary"
+                onClick={props.closeModal}
+                style={{
+                  height: "40px",
+                  width: "40px",
+                }}
+                className="d-inline mx-auto"
+              />
             </div>
           </div>
           <div className="p-4">
