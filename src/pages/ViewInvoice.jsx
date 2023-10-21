@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 import { getInvoiceData } from "../redux/invoiceSlice";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {selectInvoices} from  "../redux/invoiceSlice";
 
 export function ViewInvoice(props) {
   const navigate = useNavigate();
+  // const data = useSelector(selectInvoices);
   const data = useSelector((state) => getInvoiceData(state, props));
   const formData = data?.payload?.invoices?.value[0];
 

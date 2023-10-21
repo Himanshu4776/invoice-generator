@@ -46,23 +46,12 @@ const InvoiceModal = (props) => {
                 Invoice #: {props.info.invoiceNumber || ""}
               </h6>
             </div>
-            <div className="d-flex ">
-              <div className="text-middle ms-4">
-                <h6 className="fw-bold mt-1 mb-2">Amount Due:</h6>
-                <h5 className="fw-bold text-secondary">
-                  {" "}
-                  {props.currency} {props.total}
-                </h5>
-              </div>
-              <AiOutlineCloseCircle
-                color="primary"
-                onClick={props.closeModal}
-                style={{
-                  height: "40px",
-                  width: "40px",
-                }}
-                className="d-inline mx-auto"
-              />
+            <div className="text-end ms-4">
+              <h6 className="fw-bold mt-1 mb-2">Amount Due:</h6>
+              <h5 className="fw-bold text-secondary">
+                {" "}
+                {props.currency} {props.total}
+              </h5>
             </div>
           </div>
           <div className="p-4">
@@ -170,7 +159,7 @@ const InvoiceModal = (props) => {
         </div>
         <div className="pb-4 px-4">
           <Row>
-            <Col md={6}>
+            <Col md={4}>
               <Button
                 variant="primary"
                 className="d-block w-100"
@@ -183,7 +172,7 @@ const InvoiceModal = (props) => {
                 Send Invoice
               </Button>
             </Col>
-            <Col md={6}>
+            <Col md={4}>
               <Button
                 variant="outline-primary"
                 className="d-block w-100 mt-3 mt-md-0"
@@ -194,6 +183,23 @@ const InvoiceModal = (props) => {
                   className="me-2"
                 />
                 Download Copy
+              </Button>
+            </Col>
+            <Col md={4}>
+              <Button
+                onClick={props.closeModal}
+                className="d-block w-100 mt-3 mt-md-0"
+              >
+                <AiOutlineCloseCircle
+                  color="primary"
+                  style={{
+                    height: "16px",
+                    width: "16px",
+                    marginTop: "-3px",
+                  }}
+                  className="me-2"
+                />{" "}
+                Close Modal
               </Button>
             </Col>
           </Row>

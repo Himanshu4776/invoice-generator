@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { createSelector } from 'reselect';
 
 const initialState = {
   value: [
@@ -66,6 +67,11 @@ export const invoiceSlice = createSlice({
     },
   },
 });
+
+export const selectInvoices = createSelector(
+  state => state.invoices,
+  invoices => invoices.value
+);
 
 export const { add, update, remove, getInvoiceData } = invoiceSlice.actions;
 export default invoiceSlice.reducer;

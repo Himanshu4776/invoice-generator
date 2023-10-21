@@ -78,15 +78,17 @@ const InvoiceForm = (props) => {
   // }, [])
   const [items, setItems] = useState([
     {
-      id: 0,
+      id: 1,
       name: "",
-      description: "",
+      description: "as",
       price: "1.00",
       quantity: 1,
     },
   ]);
 
-  console.log("total , subtotal", total, subTotal, items);
+  console.log('items', items);
+
+  // console.log("total , subtotal", total, subTotal, items);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -133,12 +135,16 @@ const InvoiceForm = (props) => {
 
   const onItemizedItemEdit = (evt) => {
     const { id, name, value } = evt.target;
+    console.log("onItemizedItemEdit", id, name, value, evt.target);
     const updatedItems = items.map((item) => {
       if (item.id === id) {
-        return { ...item, [name]: value };
+        // return { ...item, [name]: value };
+        return { ...item, name: item.name + value };
       }
       return item;
     });
+
+    console.log('updatedItems', updatedItems);
 
     setItems(updatedItems);
     handleCalculateTotal();

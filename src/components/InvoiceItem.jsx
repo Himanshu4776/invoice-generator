@@ -23,6 +23,7 @@ const InvoiceItem = (props) => {
           {items.map((item) => (
             <ItemRow
               key={item.id}
+              id={item.id}
               item={item}
               currency={currency}
               onItemizedItemEdit={onItemizedItemEdit}
@@ -39,7 +40,8 @@ const InvoiceItem = (props) => {
 };
 
 const ItemRow = (props) => {
-  const { onItemizedItemEdit, item, currency } = props;
+  const { onItemizedItemEdit, item, currency, id } = props;
+  console.log("id", id);
 
   const onDelEvent = () => {
     props.onDelEvent(item);
@@ -55,7 +57,7 @@ const ItemRow = (props) => {
             name: "name",
             placeholder: "Item name",
             value: item.name,
-            id: item.id,
+            id: id,
           }}
         />
         <EditableField
@@ -65,7 +67,7 @@ const ItemRow = (props) => {
             name: "description",
             placeholder: "Item description",
             value: item.description,
-            id: item.id,
+            id: id,
           }}
         />
       </td>
@@ -78,7 +80,7 @@ const ItemRow = (props) => {
             min: 1,
             step: "1",
             value: item.quantity,
-            id: item.id,
+            id: id,
           }}
         />
       </td>
@@ -94,7 +96,7 @@ const ItemRow = (props) => {
             precision: 2,
             textAlign: "text-end",
             value: item.price,
-            id: item.id,
+            id: id,
           }}
         />
       </td>
