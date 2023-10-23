@@ -1,3 +1,4 @@
+// dummy data created to check working functionality
 export const DUMMY_DATA = {
   info: {
     currency: "$",

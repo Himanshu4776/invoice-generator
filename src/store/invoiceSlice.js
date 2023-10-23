@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createSelector } from "reselect";
 import { DUMMY_DATA } from "../shared/dummyData";
 
+// intial value of invoice Slice in sore, which is imported form dummyData file
 const initialState = {
   value: [DUMMY_DATA],
 };
 
+// slice created to manage data in store
 export const invoiceSlice = createSlice({
   name: "invoices",
   initialState,
@@ -44,6 +46,7 @@ export const selectInvoices = createSelector(
 );
 
 // Fetch the particular record form store for view and edit states.
+// createSelector used to reduce repeated calls whenever state changes.
 export const fetchInvoicesWithCode = (codeToFilter) =>
   createSelector([getDataArray], (dataArray) => {
     return dataArray.filter((item) => item.info.invoiceNumber === codeToFilter);

@@ -7,6 +7,8 @@ import { AddInvoice } from "./pages/AddInvoice";
 import { ViewInvoice } from "./pages/ViewInvoice";
 
 function App() {
+  // added Routes using react-router-dom where base route is set as "/"
+  // ListInvoice component will be rendered as a base component.
   return (
     <div className="App d-flex flex-column align-items-center justify-content-center w-100">
       <BrowserRouter>
